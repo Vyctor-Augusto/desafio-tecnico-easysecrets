@@ -170,7 +170,7 @@ Essa decisão evita conflito com usuários já cadastrados anteriormente na apli
 Clone o repositório:
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/Vyctor-Augusto/desafio-tecnico-easysecrets.git
 ```
 
 Acesse a pasta do projeto:
