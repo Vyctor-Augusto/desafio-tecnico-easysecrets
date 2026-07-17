@@ -4,9 +4,11 @@ import { SignupPage } from '../pages/SignupPage';
 import { LoginPage } from '../pages/LoginPage';
 import { ProductPage } from '../pages/ProductPage';
 import { CartPage } from '../pages/CartPage';
-import { testUser, product } from '../utils/testData';
+import { createTestUser, product } from '../utils/testData';
 
-test('deve cadastrar, logar, adicionar e remover produto do carrinho', async ({ page }) => {
+test('deve cadastrar, logar, adicionar e remover produto do carrinho', async ({ page, browserName }) => {
+  const testUser = createTestUser(browserName);
+
   const homePage = new HomePage(page);
   const signupPage = new SignupPage(page);
   const loginPage = new LoginPage(page);
