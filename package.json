@@ -1,0 +1,30 @@
+{
+  "name": "demoblaze-playwright",
+  "version": "1.0.0",
+  "description": "Automação de testes end-to-end com Playwright e TypeScript para o site Demoblaze.",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:chromium": "playwright test --project=chromium",
+    "test:headed": "playwright test --headed --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:firefox:headed": "playwright test --headed --project=firefox",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
+  "keywords": [
+    "playwright",
+    "typescript",
+    "qa",
+    "automation",
+    "e2e",
+    "testing"
+  ],
+  "author": "Vyctor Augusto",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.1"
+  }
+}
