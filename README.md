@@ -4,14 +4,47 @@ Automação de testes end-to-end para a aplicação **Demoblaze**, utilizando **
 
 ---
 
+## Conteúdo
+
+- [Objetivo](#objetivo)
+- [Tecnologias e bibliotecas utilizadas](#tecnologias-e-bibliotecas-utilizadas)
+- [Escolha das bibliotecas](#escolha-das-bibliotecas)
+  - [Playwright](#playwright)
+  - [TypeScript](#typescript)
+  - [@playwright/test](#playwrighttest)
+- [Estrutura do projeto](#estrutura-do-projeto)
+- [Organização das pastas](#organização-das-pastas)
+  - [pages](#pages)
+  - [tests](#tests)
+  - [utils](#utils)
+- [Arquitetura utilizada](#arquitetura-utilizada)
+- [Dados de teste](#dados-de-teste)
+- [Como instalar o projeto](#como-instalar-o-projeto)
+- [Como executar os testes](#como-executar-os-testes)
+- [Scripts disponíveis](#scripts-disponíveis)
+- [Fluxo automatizado](#fluxo-automatizado)
+- [Testes implementados](#testes-implementados)
+  - [home.spec.ts](#homespects)
+  - [demoblaze.spec.ts](#demoblazespects)
+- [Observações técnicas](#observações-técnicas)
+- [Uso de test.step()](#uso-de-teststep)
+- [Decisões técnicas tomadas](#decisões-técnicas-tomadas)
+- [Diferenciais implementados](#diferenciais-implementados)
+- [Execução validada](#execução-validada)
+- [Relatório de execução](#relatório-de-execução)
+- [Observação sobre navegadores](#observação-sobre-navegadores)
+- [Status do projeto](#status-do-projeto)
+
+---
+
 ## Objetivo
 
-Este projeto tem como objetivo automatizar o fluxo principal da aplicação Demoblaze, contemplando os seguintes cenários solicitados no desafio técnico:
+Este projeto tem como objetivo automatizar o fluxo principal da aplicação **Demoblaze**, contemplando os seguintes cenários solicitados no desafio técnico:
 
-- Cadastro de usuário
-- Login
-- Adição de produto ao carrinho
-- Remoção de produto do carrinho
+- Cadastro de usuário;
+- Login;
+- Adição de produto ao carrinho;
+- Remoção de produto do carrinho.
 
 Aplicação testada:
 
@@ -38,9 +71,9 @@ O **Playwright** foi escolhido por ser uma ferramenta moderna para automação d
 
 Ele também oferece suporte a múltiplos navegadores, como:
 
-- Chromium
-- Firefox
-- WebKit
+- Chromium;
+- Firefox;
+- WebKit.
 
 Isso permite validar o comportamento da aplicação em diferentes engines de navegador.
 
@@ -97,21 +130,21 @@ demoblaze-playwright/
 
 ## Organização das pastas
 
-### `pages/`
+### pages
 
-Contém os arquivos responsáveis por representar as páginas e componentes da aplicação.
+A pasta `pages/` contém os arquivos responsáveis por representar as páginas e componentes da aplicação.
 
 Essa pasta concentra as ações realizadas em cada tela, seguindo o padrão **Page Object Model**.
 
-### `tests/`
+### tests
 
-Contém os arquivos de teste automatizado.
+A pasta `tests/` contém os arquivos de teste automatizado.
 
 Nessa pasta ficam os cenários executados pelo Playwright.
 
-### `utils/`
+### utils
 
-Contém dados e recursos auxiliares utilizados nos testes.
+A pasta `utils/` contém dados e recursos auxiliares utilizados nos testes.
 
 Neste projeto, essa pasta armazena os dados de teste em `testData.ts`.
 
@@ -153,15 +186,17 @@ Os dados utilizados nos testes estão centralizados no arquivo:
 utils/testData.ts
 ```
 
-O usuário de teste é gerado dinamicamente utilizando `Date.now()`.
+O usuário de teste é gerado dinamicamente utilizando o nome do navegador, `Date.now()` e um número aleatório.
 
 Exemplo:
 
 ```ts
-username: `vyctor_${Date.now()}`
+username: `vyctor_${browserName}_${Date.now()}_${Math.floor(Math.random() * 10000)}`
 ```
 
 Essa decisão evita conflito com usuários já cadastrados anteriormente na aplicação, já que o Demoblaze não permite cadastrar o mesmo usuário mais de uma vez.
+
+Ela também reduz o risco de conflito durante execuções paralelas em múltiplos navegadores.
 
 ---
 
@@ -265,44 +300,44 @@ tests/demoblaze.spec.ts
 
 Ele executa as seguintes etapas:
 
-1. Acessa a página inicial
-2. Abre o modal de cadastro
-3. Cadastra um novo usuário
-4. Abre o modal de login
-5. Realiza login com o usuário cadastrado
-6. Seleciona o produto `Samsung galaxy s6`
-7. Adiciona o produto ao carrinho
-8. Valida que o produto foi adicionado ao carrinho
-9. Remove o produto do carrinho
-10. Valida que o produto foi removido
+1. Acessa a página inicial;
+2. Abre o modal de cadastro;
+3. Cadastra um novo usuário;
+4. Abre o modal de login;
+5. Realiza login com o usuário cadastrado;
+6. Seleciona o produto `Samsung galaxy s6`;
+7. Adiciona o produto ao carrinho;
+8. Valida que o produto foi adicionado ao carrinho;
+9. Remove o produto do carrinho;
+10. Valida que o produto foi removido.
 
 ---
 
 ## Testes implementados
 
-### `home.spec.ts`
+### home.spec.ts
 
 Teste simples responsável por validar se a página inicial do Demoblaze é carregada corretamente.
 
 Validações realizadas:
 
-- A página abre corretamente
-- O título contém `STORE`
-- O link `Sign up` está visível
-- O link `Log in` está visível
+- A página abre corretamente;
+- O título contém `STORE`;
+- O link `Sign up` está visível;
+- O link `Log in` está visível.
 
-### `demoblaze.spec.ts`
+### demoblaze.spec.ts
 
 Teste principal responsável por validar o fluxo completo solicitado no desafio.
 
 Validações realizadas:
 
-- Cadastro de usuário com sucesso
-- Login com usuário cadastrado
-- Produto adicionado ao carrinho
-- Produto exibido no carrinho
-- Produto removido do carrinho
-- Produto não aparece mais após a remoção
+- Cadastro de usuário com sucesso;
+- Login com usuário cadastrado;
+- Produto adicionado ao carrinho;
+- Produto exibido no carrinho;
+- Produto removido do carrinho;
+- Produto não aparece mais após a remoção.
 
 ---
 
@@ -331,7 +366,7 @@ Essa abordagem garante que o teste aguarde o alerta ser exibido, valide a mensag
 
 ---
 
-## Uso de `test.step()`
+## Uso de test.step()
 
 O teste principal foi dividido em etapas utilizando `test.step()`.
 
@@ -368,7 +403,9 @@ Essa separação facilita manutenção, leitura e reutilização do código.
 
 ### Dados dinâmicos
 
-O nome do usuário é gerado dinamicamente com `Date.now()` para evitar falhas por tentativa de cadastro de usuário já existente.
+O nome do usuário é gerado dinamicamente utilizando o nome do navegador, timestamp e número aleatório.
+
+Essa decisão evita conflitos com usuários já cadastrados e reduz o risco de colisão durante execuções paralelas em múltiplos navegadores.
 
 ### Tratamento de alertas
 
@@ -401,7 +438,8 @@ Além do fluxo obrigatório solicitado no desafio, o projeto também inclui:
 - Execução validada em Chromium, Firefox e WebKit;
 - Relatório HTML do Playwright;
 - `.gitignore` configurado para evitar versionamento de arquivos gerados automaticamente;
-- Teste adicional para validação da página inicial.
+- Teste adicional para validação da página inicial;
+- Sumário com links internos para facilitar a navegação no README.
 
 ---
 
@@ -459,9 +497,9 @@ O relatório apresenta:
 
 Os testes foram validados com sucesso nos navegadores:
 
-- Chromium
-- Firefox
-- WebKit
+- Chromium;
+- Firefox;
+- WebKit.
 
 O Playwright permite execução cross-browser, e o projeto foi validado nos três navegadores configurados por padrão.
 
